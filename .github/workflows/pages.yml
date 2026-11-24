@@ -23,7 +23,7 @@ jobs:
           node-version: 24
           build-cmd: npm run check && npm test && npm run build
         env:
-          BASE_PATH: /ex31sdg-website
+          BASE_PATH: /
           ASTRO_TELEMETRY_DISABLED: '1'
   deploy:
     needs: build

@@ -56,7 +56,7 @@ Repository: [petervale-dev/ex31sdg-website](https://github.com/petervale-dev/ex3
 
 The workflow in `.github/workflows/pages.yml` is **manual only**: a push does not publish the site. Choose GitHub Actions as the Pages source and manually run **Publish to GitHub Pages** to publish new writings or design updates.
 
-The workflow builds with `BASE_PATH=/ex31sdg-website`; the site URL is `https://petervale-dev.github.io/ex31sdg-website/`. If the repository name or domain changes, update the base path and `site` in `astro.config.mjs`.
+The workflow builds at the domain root with `BASE_PATH=/`; the site URL is `https://ex31sdg.com/`. The custom domain is configured on this repository's Pages settings. `public/CNAME` also records the intended domain. If the domain changes, update `site` in `astro.config.mjs` and the Pages custom domain together.
 
 ## Integration verification
 
