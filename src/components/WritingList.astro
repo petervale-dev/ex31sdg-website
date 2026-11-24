@@ -1,0 +1,17 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib/content.mjs';
+import { typeLabels, withBase } from '../lib/writings';
+interface Props { entries: CollectionEntry<'writings'>[]; }
+const { entries } = Astro.props;
+---
+<ul class="writing-list">
+  {entries.map((entry) => <li>
+    <a class="writing-row" href={withBase(`writings/${entry.id}/`)}>
+      <time datetime={entry.data.date}>{formatDate(entry.data.date)}</time>
+      <span class="writing-title">{entry.data.title}</span>
+      <span class="writing-type">{typeLabels[entry.data.type]}</span>
+      <span class="writing-arrow" aria-hidden="true">↗</span>
+    </a>
+  </li>)}
+</ul>

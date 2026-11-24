@@ -1,0 +1,30 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import OceanFooter from '../../components/OceanFooter.astro';
+import YouTube from '../../components/YouTube.astro';
+import { getWritings, typeLabels, withBase } from '../../lib/writings';
+import { formatDate } from '../../lib/content.mjs';
+export async function getStaticPaths() {
+  return (await getWritings()).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+interface Props { entry: CollectionEntry<'writings'>; }
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<Base title={`${entry.data.title} — EX31SDG`} description={entry.data.description} noindex={entry.data.example}>
+  <header class="reading-nav"><a class="small-wordmark" href={withBase()}>EX31SDG</a><a href={withBase('writings/')}>All writings <span aria-hidden="true">↗</span></a></header>
+  <main id="main" class="reading-main">
+    <article>
+      <header class="reading-header">
+        <div class="reading-meta"><time datetime={entry.data.date}>{formatDate(entry.data.date)}</time><span>{typeLabels[entry.data.type]}</span></div>
+        <h1>{entry.data.title}</h1>
+        {entry.data.example && <p class="example-note">Example writing — for preview only.</p>}
+      </header>
+      {entry.data.youtube && <YouTube url={entry.data.youtube} title={entry.data.title} />}
+      <div class="prose"><Content /></div>
+      <a class="reading-back" href={withBase('#writings')}>← Back to the studio</a>
+    </article>
+  </main>
+  <OceanFooter />
+</Base>

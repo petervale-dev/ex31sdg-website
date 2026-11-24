@@ -1,0 +1,8 @@
+---
+import { Picture } from 'astro:assets';
+import ocean from '../assets/ocean-wave-darker.png';
+---
+<footer class="ocean-footer" aria-label="EX31SDG">
+  <Picture src={ocean} formats={['avif', 'webp']} fallbackFormat="png" widths={[640, 960, 1440, 2172]} sizes="100vw" alt="" loading="lazy" decoding="async" quality={90} />
+  <div class="ocean-wordmark" aria-hidden="true">EX31SDG</div>
+</footer>

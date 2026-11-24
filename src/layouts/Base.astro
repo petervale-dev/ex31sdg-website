@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+import normalFont from '@fontsource-variable/inter/files/inter-latin-standard-normal.woff2?url';
+import italicFont from '@fontsource-variable/inter/files/inter-latin-standard-italic.woff2?url';
+import { withBase } from '../lib/writings';
+interface Props { title?: string; description?: string; noindex?: boolean; }
+const { title = 'EX31SDG — Creative Studio', description = 'An innovative creative studio providing creative solutions. Writings, ideas, and projects by EX31SDG.', noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <meta name="generator" content={Astro.generator} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <link rel="preload" href={normalFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={italicFont} as="font" type="font/woff2" crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="EX31SDG" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot />
+  </body>
+</html>

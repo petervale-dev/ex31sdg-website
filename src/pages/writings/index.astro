@@ -1,0 +1,6 @@
+---
+import WritingsArchive from '../../components/WritingsArchive.astro';
+import { getWritings } from '../../lib/writings';
+const entries = await getWritings();
+---
+<WritingsArchive entries={entries.slice(0, 20)} totalPages={Math.max(1, Math.ceil(entries.length / 20))} />

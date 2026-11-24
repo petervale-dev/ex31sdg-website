@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import OceanFooter from '../components/OceanFooter.astro';
+import WritingList from '../components/WritingList.astro';
+import { getWritings, withBase } from '../lib/writings';
+const writings = await getWritings();
+---
+<Base>
+  <main id="main" class="landing">
+    <section class="hero" aria-label="Our studio">
+      <h1 class="manifesto">We are an <em>Innovative Creative Studio</em>, providing <em>Creative Solutions</em>.<br />We by any means believe that <em>Creativity</em> is the cornerstone of Life.<br />It is our passion and lifelong project, to contribute to making the earth<br />a better place, with this gift that we got from <em>God</em>.</h1>
+      <div class="hero-signature"><span>EX31SDG</span></div>
+    </section>
+    <section id="writings" class="community" aria-label="Writings">
+      <p class="community-intro">One of our goal is to provide value, not just to our partners, but also to the community.</p>
+      <div class="community-writings">
+        <WritingList entries={writings.slice(0, 5)} />
+        {writings.length > 5 && <a class="all-writings" href={withBase('writings/')}>All writings <span aria-hidden="true">↗</span></a>}
+      </div>
+    </section>
+    <section class="solutions" aria-label="Creative solutions">
+      <p><span class="desktop-solutions">Creative Solutions are personalized to the problem, request one has.</span><span class="mobile-solutions">Creative Solutions are personalized to the problem request one has.</span> It could be creative direction, strategy or simply the need of new ideas. After one applies to become our partner this personalization takes place. There is no idea that is too small or too big. No matter where you are within your journey there is always room for innovation and new ideas. We as a team of creatives are obsessed with the opportunities every business, brand or person holds.</p>
+      <p>We currently work either in a longerterm Partnership with our clients or just provide one time solutions.</p>
+      <div class="partner-action"><a class="partner-link" href="https://cal.com/ex31sdg/become-a-partner-introduction-call">Become a partner.<span aria-hidden="true">↗</span></a></div>
+    </section>
+  </main>
+  <OceanFooter />
+</Base>

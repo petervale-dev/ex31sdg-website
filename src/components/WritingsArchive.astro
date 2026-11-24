@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import OceanFooter from './OceanFooter.astro';
+import WritingList from './WritingList.astro';
+import { withBase } from '../lib/writings';
+interface Props { entries: CollectionEntry<'writings'>[]; current?: number; totalPages?: number; }
+const { entries, current = 1, totalPages = 1 } = Astro.props;
+const pageUrl = (number: number) => number === 1 ? withBase('writings/') : withBase(`writings/page/${number}/`);
+---
+<Base title="Writings — EX31SDG">
+  <header class="reading-nav"><a class="small-wordmark" href={withBase()}>EX31SDG</a><a href={withBase()}>Studio <span aria-hidden="true">↗</span></a></header>
+  <main id="main" class="archive">
+    <h1>Writings</h1>
+    <WritingList entries={entries} />
+    {entries.length === 0 && <p>No writings yet.</p>}
+    {totalPages > 1 && <nav class="pagination" aria-label="Writings pages">
+      {current > 1 ? <a href={pageUrl(current - 1)}>← Newer</a> : <span />}
+      <span>Page {current} of {totalPages}</span>
+      {current < totalPages ? <a href={pageUrl(current + 1)}>Older →</a> : <span />}
+    </nav>}
+  </main>
+  <OceanFooter />
+</Base>

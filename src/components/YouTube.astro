@@ -1,0 +1,28 @@
+---
+import { youtubeId } from '../lib/content.mjs';
+interface Props { url: string; title: string; }
+const { url, title } = Astro.props;
+const id = youtubeId(url);
+---
+{id && <div class="youtube-player" data-video-id={id}>
+  <button class="youtube-load" type="button" aria-label={`Play ${title} on YouTube`}>
+    <svg width="52" height="52" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="25" fill="none" stroke="currentColor"/><path d="M21 16 37 26 21 36Z" fill="currentColor"/></svg>
+    <span>Play video</span>
+  </button>
+  <noscript><a href={url} rel="noopener noreferrer">Watch on YouTube</a></noscript>
+</div>}
+<script>
+  document.querySelectorAll<HTMLElement>('.youtube-player').forEach((player) => {
+    player.querySelector('button')?.addEventListener('click', () => {
+      const id = player.dataset.videoId;
+      if (!id || !/^[A-Za-z0-9_-]{11}$/.test(id)) return;
+      const frame = document.createElement('iframe');
+      frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+      frame.title = 'YouTube video player';
+      frame.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share';
+      frame.allowFullscreen = true;
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      player.replaceChildren(frame);
+    }, { once: true });
+  });
+</script>
